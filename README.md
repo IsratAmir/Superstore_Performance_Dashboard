@@ -2,7 +2,7 @@
 A Power BI dashboard built on the Superstore **Orders** dataset to analyze sales performance over time, compare **CY vs PY**, and identify **top customers** by purchase volume.   
 Primary focus: **data transformation + star schema modeling + DAX measures** 
 
-![Dashboard Screenshot](..png)
+![Dashboard Screenshot](assets/Superstore_Performance%20Dashboard.png)
 
 ---
 
@@ -32,6 +32,7 @@ This project uses a **star schema** to keep the model clean, performant, and sca
 - 'Dim_* (1) → Fact_Orders (*)' (One to Many Relationshop)
 - Cross-filter direction: **Single**
 - Active date relationship: 'Dim_Date[Date] → Fact_Orders[Order Date]'
+
 
 
 ---
