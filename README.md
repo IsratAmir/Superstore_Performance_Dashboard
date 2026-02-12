@@ -33,6 +33,7 @@ This project uses a **star schema** to keep the model clean, performant, and sca
 - Cross-filter direction: **Single**
 - Active date relationship: 'Dim_Date[Date] → Fact_Orders[Order Date]'
 
+![Data Model](assets/Superstore_data_modelling.png)
 
 
 ---
