@@ -97,7 +97,7 @@ Key transformation steps performed in Power Query:
 
 ## 📐 Core DAX Measures
 ### Base KPIs
-'''DAX
+```DAX
 Total Sales = SUM ( Fact_Orders[Sales] )
 Total Profit = SUM ( Fact_Orders[Profit] )
 Total Orders = DISTINCTCOUNT ( Fact_Orders[Order ID] )
@@ -105,7 +105,7 @@ Total Quantity = SUM ( Fact_Orders[Quantity] )
 
 
 **YoY (Sales / Profit)**
-'''DAX
+```DAX
 Sales LY =
 CALCULATE ( [Total Sales], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )
 
@@ -119,7 +119,7 @@ Profit YoY % =
 DIVIDE ( [Total Profit] - [Profit LY], [Profit LY] )
 
 **Customer Ranking (Top customers by purchase)**
-'''DAX
+```DAX
 Total Purchase = [Total Sales]
 
 Customer Rank =
@@ -135,14 +135,14 @@ Customer Count =
 COUNTROWS( VALUES( Dim_Customer[Customer Name] ) )
 
 **CY vs PY Orders trend***
-'''DAX
+```DAX 
 Orders CY = [Total Orders]
 
 Orders PY =
 CALCULATE ( [Total Orders], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )
 
 **CY vs PY Sales trend***
-'''DAX
+```DAX
 Sales CY = [Total Sales]
 
 Sales PY =
@@ -166,8 +166,8 @@ AVERAGEX(
 )
 
 ---
-
-📊 Report Features
+````
+## 📊 Report Features
 
 - Year selector to filter all visuals
 
