@@ -10,7 +10,7 @@ This report contains **three dashboards (pages)**:
 ### 1) Overview Dashboard
 High-level performance view with KPIs, YoY indicators, sales breakdown, CY vs PY trend, region/category matrix, and state sales.
 
-![Overview Dashboard](./<OVERVIEW_SCREENSHOT_FILENAME>.png)
+![Overview Dashboard](./assets/Superstore_Performance%20Dashboard_Overview.png)
 
 **Key insights**
 - Total Sales, Profit, Orders, Quantity (with YoY %)
@@ -24,7 +24,7 @@ High-level performance view with KPIs, YoY indicators, sales breakdown, CY vs PY
 ### 2) Customer Dashboard
 Customer-centric analytics focused on segmentation and top customer ranking.
 
-![Customer Dashboard](./<CUSTOMER_SCREENSHOT_FILENAME>.png)
+![Customer Dashboard](./assets/Superstore_Performance%20Dashboard_Customer.png)
 
 **Key insights**
 - Profit by Segment + segment profit cards
@@ -37,7 +37,8 @@ Customer-centric analytics focused on segmentation and top customer ranking.
 ### 3) Product Dashboard
 Product performance view focused on profitability by category, product ranking, and sub-category performance.
 
-![Product Dashboard](./<PRODUCT_SCREENSHOT_FILENAME>.png)
+![Product Dashboard](./assets/Superstore_Performance%20Dashboard_Product.png)
+
 
 **Key insights**
 - Total Profit by Category + category profit cards
@@ -96,8 +97,10 @@ Key transformation steps performed in Power Query:
 ---
 
 ## 📐 Core DAX Measures
-### Base KPIs
+
 ```DAX
+### Base KPIs
+
 Total Sales = SUM ( Fact_Orders[Sales] )
 Total Profit = SUM ( Fact_Orders[Profit] )
 Total Orders = DISTINCTCOUNT ( Fact_Orders[Order ID] )
@@ -105,7 +108,7 @@ Total Quantity = SUM ( Fact_Orders[Quantity] )
 
 
 **YoY (Sales / Profit)**
-```DAX
+
 Sales LY =
 CALCULATE ( [Total Sales], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )
 
@@ -119,7 +122,7 @@ Profit YoY % =
 DIVIDE ( [Total Profit] - [Profit LY], [Profit LY] )
 
 **Customer Ranking (Top customers by purchase)**
-```DAX
+
 Total Purchase = [Total Sales]
 
 Customer Rank =
@@ -135,14 +138,14 @@ Customer Count =
 COUNTROWS( VALUES( Dim_Customer[Customer Name] ) )
 
 **CY vs PY Orders trend***
-```DAX 
+ 
 Orders CY = [Total Orders]
 
 Orders PY =
 CALCULATE ( [Total Orders], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )
 
 **CY vs PY Sales trend***
-```DAX
+
 Sales CY = [Total Sales]
 
 Sales PY =
@@ -152,7 +155,7 @@ CALCULATE(
 )
 
 ### Benchmark lines for Scatter (Sub-Category Volume vs Profit)
-```DAX
+
 Avg Sales (All Sub-Categories) =
 AVERAGEX(
     ALL ( dim_Product[Sub-Category] ),
@@ -165,8 +168,9 @@ AVERAGEX(
     [Total Profit]
 )
 
----
 ````
+
+
 ## 📊 Report Features
 
 - Year selector to filter all visuals
@@ -188,7 +192,8 @@ AVERAGEX(
 
 ▶️ How to use/run the report
 
-1. Download the .pbix file from this repo: [add your file name here]
+1. Download the .pbix file from this repo: [Superstore_Performance_Dashboard
+/src/]
 2. Open in Power BI Desktop
 3. If needed, update the data source path (Transform Data → Data source settings)
 4. Use the Year buttons and slicers to explore performance
