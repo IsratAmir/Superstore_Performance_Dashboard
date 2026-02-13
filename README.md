@@ -105,6 +105,7 @@ Total Quantity = SUM ( Fact_Orders[Quantity] )
 
 
 **YoY (Sales / Profit)**
+'''DAX
 Sales LY =
 CALCULATE ( [Total Sales], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )
 
@@ -118,6 +119,7 @@ Profit YoY % =
 DIVIDE ( [Total Profit] - [Profit LY], [Profit LY] )
 
 **Customer Ranking (Top customers by purchase)**
+'''DAX
 Total Purchase = [Total Sales]
 
 Customer Rank =
@@ -133,12 +135,14 @@ Customer Count =
 COUNTROWS( VALUES( Dim_Customer[Customer Name] ) )
 
 **CY vs PY Orders trend***
+'''DAX
 Orders CY = [Total Orders]
 
 Orders PY =
 CALCULATE ( [Total Orders], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )
 
 **CY vs PY Sales trend***
+'''DAX
 Sales CY = [Total Sales]
 
 Sales PY =
@@ -161,7 +165,7 @@ AVERAGEX(
     [Total Profit]
 )
 
-----
+---
 
 📊 Report Features
 
