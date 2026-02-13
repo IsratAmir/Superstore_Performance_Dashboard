@@ -18,7 +18,7 @@ High-level performance view with KPIs, YoY indicators, sales breakdown, CY vs PY
 - Current Year vs Last Year (Sales by Month)
 - Sales by Region & Category (heatmap matrix)
 - Total Sales by State (Top states + map)
-- 
+  
 ---
 
 ### 2) Customer Dashboard
