@@ -1,17 +1,49 @@
 # Superstore_Performance_Dashboard (Power BI)
-A Power BI dashboard built on the Superstore **Orders** dataset to analyze sales performance over time, compare **CY vs PY**, and identify **top customers** by purchase volume.   
-Primary focus: **data transformation + star schema modeling + DAX measures** 
-
-![Dashboard Screenshot](assets/Superstore_Performance%20Dashboard.png)
+A Power BI report built on the **Superstore Orders** dataset to analyze sales performance over time, compare **CY vs PY**, and identify top customers/products.
+Primary focus: **data transformation + star schema modeling + DAX measures**.
 
 ---
 
-## 📌 What this dashboard answers
-- What are the **Total Sales, Total Profit, Total Orders, Total Quantity** for the selected year?
-- How do key KPIs perform **Year-over-Year (YoY %)**?
-- Which **segment (Consumer / Corporate / Home Office)** contributes most to profit?
-- How do **Orders CY vs Orders PY** trend across months?
-- Who are the **Top N customers** by total purchase and what is their rank?
+## 📄 Report Pages
+This report contains **three dashboards (pages)**:
+
+### 1) Overview Dashboard
+High-level performance view with KPIs, YoY indicators, sales breakdown, CY vs PY trend, region/category matrix, and state sales.
+
+![Overview Dashboard](./<OVERVIEW_SCREENSHOT_FILENAME>.png)
+
+**Key insights**
+- Total Sales, Profit, Orders, Quantity (with YoY %)
+- Sales Breakdown (Segment → Category → Sub-Category)
+- Current Year vs Last Year (Sales by Month)
+- Sales by Region & Category (heatmap matrix)
+- Total Sales by State (Top states + map)
+- 
+---
+
+### 2) Customer Dashboard
+Customer-centric analytics focused on segmentation and top customer ranking.
+
+![Customer Dashboard](./<CUSTOMER_SCREENSHOT_FILENAME>.png)
+
+**Key insights**
+- Profit by Segment + segment profit cards
+- Orders CY vs PY trend
+- Customer ranking by Total Purchase with data bars
+- Customer count KPI + customer search slicer
+
+---
+
+### 3) Product Dashboard
+Product performance view focused on profitability by category, product ranking, and sub-category performance.
+
+![Product Dashboard](./<PRODUCT_SCREENSHOT_FILENAME>.png)
+
+**Key insights**
+- Total Profit by Category + category profit cards
+- Product ranking by Sales
+- Sub-Category Volume vs Profit (bubble scatter: Sales vs Profit sized by Quantity)
+- Product count KPI + product search slicer
 
 ---
 
@@ -26,7 +58,8 @@ This project uses a **star schema** to keep the model clean, performant, and sca
 - 'Dim_Date' (marked as Date table, to enable reliable time-intelligence calculations (e.g., YoY, CY vs PY) and consistent month/year sorting)
 - 'Dim_Customer' (Customer Id, Customer Name, Segment, Customer Display that combines the Customer Name and Segment)
 - 'Dim_Product' (Product Id, Product Name, Category, Sub-Category)
-
+- 'Dim_Geo' (Region/State/City/Postal)
+- 'Dim_ShipMode' (optional)
 
 **Relationships**
 - 'Dim_* (1) → Fact_Orders (*)' (One to Many Relationshop)
@@ -38,6 +71,7 @@ This project uses a **star schema** to keep the model clean, performant, and sca
 
 ---
 
+
 ## 🧹 Data Transformation (Power Query)
 Key transformation steps performed in Power Query:
 
@@ -46,6 +80,7 @@ Key transformation steps performed in Power Query:
    - Numeric: 'Sales', 'Profit', 'Discount' → Decimal
    - 'Quantity' → Whole number
    - IDs: 'Order ID', 'Customer ID', 'Product ID', 'Postal Code' → Text
+   - Geography fields: Country, Region, State, City, Postal Code → Text (standardized for consistent joins)
 
 2. **Text cleaning**
    - Trim/Clean is applied to fields like Customer Name and Location columns to avoid mismatched joins.
@@ -103,6 +138,28 @@ Orders CY = [Total Orders]
 Orders PY =
 CALCULATE ( [Total Orders], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )
 
+**CY vs PY Sales trend***
+Sales CY = [Total Sales]
+
+Sales PY =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR( dim_Date[Date] )
+)
+
+### Benchmark lines for Scatter (Sub-Category Volume vs Profit)
+```DAX
+Avg Sales (All Sub-Categories) =
+AVERAGEX(
+    ALL ( dim_Product[Sub-Category] ),
+    [Total Sales]
+)
+
+Avg Profit (All Sub-Categories) =
+AVERAGEX(
+    ALL ( dim_Product[Sub-Category] ),
+    [Total Profit]
+)
 
 ----
 
